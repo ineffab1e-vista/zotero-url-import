@@ -1,30 +1,29 @@
 {
-  "name": "zotero-plugin-template",
+  "name": "zotero-url-import",
   "type": "module",
-  "version": "3.1.0",
-  "description": "Zotero Plugin Template",
+  "version": "0.1.0",
+  "description": "Expands Zotero's URL scheme to import items via URL parameters and queries.",
   "config": {
-    "addonName": "Zotero Plugin Template",
-    "addonID": "addontemplate@euclpts.com",
-    "addonRef": "addontemplate",
-    "addonInstance": "AddonTemplate",
-    "prefsPrefix": "extensions.zotero.addontemplate"
+    "addonName": "URL Import",
+    "addonID": "zotero-url-import@euclpts.com",
+    "addonRef": "zotero-url-import",
+    "addonInstance": "zoteroURLImport"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/windingwind/zotero-plugin-template.git"
+    "url": "git+https://github.com/ineffab1e-vista/zotero-url-import.git"
   },
-  "author": "windingwind",
+  "author": "ineffab1e-vista",
   "bugs": {
-    "url": "https://github.com/windingwind/zotero-plugin-template/issues"
+    "url": "https://github.com/ineffab1e-vista/zotero-url-import/issues"
   },
-  "homepage": "https://github.com/windingwind/zotero-plugin-template#readme",
+  "homepage": "https://github.com/ineffab1e-vista/zotero-url-import#readme",
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "start": "zotero-plugin serve",
     "build": "zotero-plugin build && tsc --noEmit",
-    "lint:check": "prettier --check . && eslint .",
-    "lint:fix": "prettier --write . && eslint . --fix",
+    "format": "prettier -c .",
+    "lint": "eslint .",
     "release": "zotero-plugin release",
     "test": "zotero-plugin test",
     "update-deps": "npm update --save"
@@ -46,6 +45,7 @@
     "zotero-types": "^4.1.0-beta.1"
   },
   "prettier": {
+    "singleQuote": true,
     "printWidth": 80,
     "tabWidth": 2,
     "endOfLine": "lf",
