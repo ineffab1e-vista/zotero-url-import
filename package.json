@@ -7,7 +7,8 @@
     "addonName": "URL Import",
     "addonID": "zotero-url-import@euclpts.com",
     "addonRef": "zotero-url-import",
-    "addonInstance": "zoteroURLImport"
+    "addonInstance": "zoteroURLImport",
+    "prefsPrefix": "extensions.zotero.zotero-url-import"
   },
   "repository": {
     "type": "git",
