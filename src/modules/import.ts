@@ -9,11 +9,8 @@ export function registerURLImportHandler() {
       this.doAction(uri);
     },
     async doAction(uri: nsIURI) {
-      // Zotero.log(uri);
       const [_, rawQuery = ''] = uri.pathQueryRef.split('?');
-      // const path = rawPath.replace(/^\/+/, '');
       const params = new URLSearchParams(rawQuery);
-      // Zotero.log(params);
 
       const bibtexString = params.get('bibtex');
       Zotero.log(bibtexString);
@@ -28,21 +25,23 @@ export function registerURLImportHandler() {
   };
 }
 
+async function getAllTranslators() {
+  return await Zotero.Translators.getAll();
+}
+
 async function createFromBibTeX(bibtexString: string) {
   // Use the BibTeX translator (GUID for standard BibTeX translator)
-  const bibtexTranslator = (await Zotero.Translators.getAll()).find(
+  const bibtexTranslator = (await getAllTranslators()).find(
     (t: any) => t.label === 'BibTeX',
   );
-  Zotero.log(bibtexTranslator);
 
   try {
     const translate = new Zotero.Translate.Import();
     translate.setTranslator(bibtexTranslator);
     translate.setString(bibtexString);
     await translate.translate({ libraryID: Zotero.Libraries.userLibraryID });
-    Zotero.log('Zotero URL Expander: Created item from BibTeX');
   } catch (e) {
-    Zotero.log(e);
+    Zotero.logError(e as Error);
   }
 }
 
