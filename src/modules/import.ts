@@ -12,13 +12,13 @@ export function registerURLImportHandler() {
       const params = new URLSearchParams(rawQuery);
 
       const bibtexString = params.get('bibtex');
-      Zotero.log(bibtexString);
       if (typeof bibtexString === 'string') {
         await createFromBibTeX(decodeURI(bibtexString));
       }
-      const identifer = params.get('identifier');
-      if (typeof identifer === 'string') {
-        // NOP
+
+      const identifierString = params.get('identifier');
+      if (typeof identifierString === 'string') {
+        await handleIdentifier(identifierString);
       }
     },
   };
@@ -42,22 +42,13 @@ async function createFromBibTeX(bibtexString: string) {
   }
 }
 
-// async function handleIdentifier(params: URLSearchParams) {
-//   const query = params.get('q');
-//   if (!query) {
-//     Zotero.alert(null, 'QuickAdd URL', 'Missing ?q= parameter (identifier)');
-//     return;
-//   }
-
-//   const pane = Zotero.getActiveZoteroPane();
-
-//   // PSEUDOCODE: you’ll need to confirm the exact method name/signature
-//   // in Zotero source. It’s something like:
-//   //
-//   await pane.addByIdentifier(query);
-//   //
-//   // or a helper object that wraps the identifier workflow.
-
-//   // Example pseudo-call:
-//   // await (pane as any).addByIdentifier(query);
-// }
+async function handleIdentifier(identifierString: string) {
+  try {
+    const identifiers = Zotero.Utilities.extractIdentifiers(identifierString);
+    const search = new Zotero.Translate.Search();
+    search.setIdentifier(identifiers[0]);
+    await search.translate({ libraryID: Zotero.Libraries.userLibraryID });
+  } catch (e) {
+    Zotero.logError(e as Error);
+  }
+}
