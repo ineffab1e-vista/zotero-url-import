@@ -1,4 +1,4 @@
-import { registerURLImportHandler } from './modules/url-import';
+import { registerURLImportHandler } from './modules/import';
 import { getString, initLocale } from './utils/locale';
 import { createZToolkit } from './utils/ztoolkit';
 // import {
