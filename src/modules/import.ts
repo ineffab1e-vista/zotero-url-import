@@ -45,9 +45,11 @@ async function createFromBibTeX(bibtexString: string) {
 async function handleIdentifier(identifierString: string) {
   try {
     const identifiers = Zotero.Utilities.extractIdentifiers(identifierString);
-    const search = new Zotero.Translate.Search();
-    search.setIdentifier(identifiers[0]);
-    await search.translate({ libraryID: Zotero.Libraries.userLibraryID });
+    identifiers.forEach(async (identifier) => {
+      const search = new Zotero.Translate.Search();
+      search.setIdentifier(identifier);
+      await search.translate({ libraryID: Zotero.Libraries.userLibraryID });
+    });
   } catch (e) {
     Zotero.logError(e as Error);
   }
