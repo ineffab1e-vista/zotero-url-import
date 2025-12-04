@@ -9,11 +9,44 @@ export function registerURLImportHandler() {
       this.doAction(uri);
     },
     async doAction(uri: nsIURI) {
-      const [rawPath, rawQuery = ''] = uri.pathQueryRef.split('?');
-      const path = rawPath.replace(/^\/+/, '');
+      // Zotero.log(uri);
+      const [_, rawQuery = ''] = uri.pathQueryRef.split('?');
+      // const path = rawPath.replace(/^\/+/, '');
       const params = new URLSearchParams(rawQuery);
+      // Zotero.log(params);
+
+      const bibtexString = params.get('bibtex');
+      if (typeof bibtexString === 'string') {
+        const decodedString = decodeURI(bibtexString);
+        // Zotero.log(decodedString);
+        await createFromBibTeX(decodeURI(bibtexString));
+      }
+      const identifer = params.get('identifier');
+      if (typeof identifer === 'string') {
+        // NOP
+      }
     },
   };
+}
+
+async function createFromBibTeX(bibtexString: string) {
+  const translate = new Zotero.Translate.Import();
+  translate.setString(bibtexString);
+
+  // Use the BibTeX translator (GUID for standard BibTeX translator)
+  const translators = await Zotero.Translate.getTranslators(
+    Zotero.Translate.getStandardTranslatorDirectory(),
+    null,
+  );
+  const bibtexTranslator = translators.find((t) => t.label === 'BibTeX');
+
+  if (bibtexTranslator) {
+    translate.setTranslator(bibtexTranslator);
+    await translate.translate({ libraryID: Zotero.Libraries.userLibraryID });
+    Zotero.debug('Zotero URL Expander: Created item from BibTeX');
+  } else {
+    Zotero.debug('Zotero URL Expander: BibTeX translator not found');
+  }
 }
 
 // async function handleIdentifier(params: URLSearchParams) {
