@@ -1,7 +1,7 @@
 {
   "name": "zotero-url-import",
   "type": "module",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0",
   "description": "Expands Zotero's URL scheme to import items via URL parameters and queries.",
   "config": {
     "addonName": "URL Import",
