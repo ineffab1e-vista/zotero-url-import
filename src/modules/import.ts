@@ -1,4 +1,3 @@
-// The type is provided by zotero-types; `ChromeUtils` and `Zotero` are globals.
 export function registerURLImportHandler() {
   const protocol = Services.io.getProtocolHandler('zotero')
     .wrappedJSObject as any;
@@ -30,12 +29,10 @@ async function getAllTranslators() {
 }
 
 async function createFromBibTeX(bibtexString: string) {
-  // Use the BibTeX translator (GUID for standard BibTeX translator)
-  const bibtexTranslator = (await getAllTranslators()).find(
-    (t: any) => t.label === 'BibTeX',
-  );
-
   try {
+    const bibtexTranslator = (await getAllTranslators()).find(
+      (t: any) => t.label === 'BibTeX',
+    );
     const translate = new Zotero.Translate.Import();
     translate.setTranslator(bibtexTranslator);
     translate.setString(bibtexString);
