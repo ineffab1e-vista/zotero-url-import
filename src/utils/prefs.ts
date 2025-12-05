@@ -1,6 +1,6 @@
-import { config } from "../../package.json";
+import { config } from '../../package.json';
 
-type PluginPrefsMap = _ZoteroTypes.Prefs["PluginPrefsMap"];
+type PluginPrefsMap = _ZoteroTypes.Prefs['PluginPrefsMap'];
 
 const PREFS_PREFIX = config.prefsPrefix;
 
