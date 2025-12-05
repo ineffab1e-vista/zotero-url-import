@@ -1,7 +1,11 @@
-export function registerURLImportHandler() {
-  const protocol = Services.io.getProtocolHandler('zotero')
-    .wrappedJSObject as any;
+const protocol = Services.io.getProtocolHandler('zotero')
+  .wrappedJSObject as any;
 
+export function deregisterURLImportHandler() {
+  delete protocol._extensions['zotero://import'];
+}
+
+export function registerURLImportHandler() {
   protocol._extensions['zotero://import'] = {
     noContent: true,
     newChannel(uri: nsIURI) {

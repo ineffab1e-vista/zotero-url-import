@@ -1,4 +1,7 @@
-import { registerURLImportHandler } from './modules/import';
+import {
+  deregisterURLImportHandler,
+  registerURLImportHandler,
+} from './modules/import';
 
 async function onStartup() {
   await Promise.all([
@@ -17,7 +20,9 @@ async function onMainWindowLoad(win: _ZoteroTypes.MainWindow): Promise<void> {}
 
 async function onMainWindowUnload(win: Window): Promise<void> {}
 
-function onShutdown(): void {}
+function onShutdown(): void {
+  deregisterURLImportHandler();
+}
 
 async function onNotify(
   event: string,
