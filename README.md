@@ -5,8 +5,6 @@
 
 A Zotero 7 plugin that extends the `zotero://` scheme to import items directly from BibTeX strings or identifiers (ISBN, DOI, arXiv, etc.).
 
-**Disclaimer: This plugin is still in alpha stage and may have unprecedented issues! I'm very new to Zotero plugin development and unsure whether my code may cause issues. All kinds of feedbacks/issue reports are very much appreciated!**
-
 ## URL Formats
 
 ### BibTeX
