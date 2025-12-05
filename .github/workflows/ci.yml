@@ -16,8 +16,10 @@ jobs:
     steps:
       - name: Setup JS
         uses: zotero-plugin-dev/workflows/setup-js@main
-      - name: Run Lint
-        run: npm run lint:check
+      - name: Check code format
+        run: npm run format
+      - name: Lint code
+        run: npm run lint
 
   build:
     runs-on: ubuntu-latest
